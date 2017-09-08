@@ -6,6 +6,7 @@ Created on Tue Apr 19 20:30:58 2016
 """
 import os
 from keras.models import Sequential
+from keras.applications.vgg16 import VGG16
 from keras.layers.core import Flatten, Dense, Dropout
 from keras.layers.convolutional import Convolution2D, MaxPooling2D, ZeroPadding2D
 from keras.optimizers import SGD
@@ -76,7 +77,8 @@ def VGG_16(weights_path=None):
 
 def predict(image_url):
     im = load_image(image_url)
-    model = VGG_16('vgg16_weights.h5')
+    # model = VGG_16('vgg16_weights.h5')
+    model = VGG16(weights='imagenet')
     sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
     model.compile(optimizer=sgd, loss='categorical_crossentropy')
 
